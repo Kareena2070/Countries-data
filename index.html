@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>World Countries</title>
+  <!-- CSS style sheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Font Awesome CDN  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+</head>
+<body>
+    <nav class="navbar">
+        <h1>World Countries Data</h1>
+        <p>Currently, we have 250 Countries</p>
+
+        <p id="result-msg"></p>
+    </nav>
+
+    <div class="search-container">
+        <div>
+            <input type="text" id="search" placeholder="Search by name, capital or language">
+        </div>
+        <div class="buttons">
+            <button id="name">NAME</button>
+            <button id="reset-button">CAPITAL</button>
+            <button id="sort-button">POPULATION</button>
+            <a href="#graph"><i class="fa-solid fa-chart-simple"></i></a>
+        </div>
+    </div> 
+    <div id="countries-container"> </div>
+<!-- 
+    <div>
+        <h1>WORLD POPULATION </h1>
+        <div class="population-container">
+            <div class="population-item">
+                <h2 id="total-population">Total Population: </h2>
+            </div>
+            <div class="population-item">
+                <h2 id="average-population">Average Population: </h2>
+            </div>
+            <div class="population-item">
+                <h2 id="largest-population">Largest Population: </h2>
+            </div>
+            <div class="population-item">
+                <h2 id="smallest-population">Smallest Population: </h2>
+            </div>
+            <div class="population-item">
+                <h2 id="most-populated-country">Most Populated Country: </h2>
+    </div> -->
+    <div id="garph">
+        <h3>10 Most Populated Countries in the World</h3>
+        <div id="chart"></div>
+    </div>
+
+    <!-- Load country data -->
+    <script src="countries_data_old.js"></script>
+    <!-- Main JS logic -->
+    <script src="script.js"></script>
+
+    
+</body>
+</html>
