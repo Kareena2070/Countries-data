@@ -9,6 +9,7 @@ body {
     cursor: pointer;
   }
 h1{
+  letter-spacing: 0.1em;
     color: orange;
     font-size: 3em;
     margin-top: 0.5em;
@@ -76,3 +77,6 @@ i{
   font-weight: bold;
 }
 
+.div3{
+  background-color: aqua;
+}

@@ -34,9 +34,20 @@ searchInput.addEventListener("input", () => {
 
   if (keyword === "") {
     resultMsg.textContent = "";
-    displayCountries(countries);       // show all countries again
+    displayCountries(countries);       // show all countries again if keyword not written
     return; // stop here
   }
+});
+
+
+const name1 = document.getElementById("name")
+const capital = document.getElementById("capital")
+const population = document.getElementById("population")
+
+// each button are click able 
+
+name1.addEventListener("click",()=>{
+  const keyword = searchInput.value.toLowerCase();
 
   const filtered = countries.filter(country =>
     country.name.toLowerCase().includes(keyword)
@@ -44,23 +55,46 @@ searchInput.addEventListener("input", () => {
 
   resultMsg.textContent = `${filtered.length} countries satisfied the search criteria`;
   displayCountries(filtered);
+})
 
+
+capital.addEventListener("click", () => {
+  const keyword = searchInput.value.toLowerCase();
+
+  const filtered = countries.filter(country =>
+    country.capital && country.capital.toLowerCase().includes(keyword)
+  );
+
+  resultMsg.textContent = `${filtered.length} countries satisfied the search criteria`;
+  displayCountries(filtered);
 });
 
 
+population.addEventListener("click", ()=>{
+  const keyword = Number(searchInput.value);
 
-// Draw graph for top 10 population
-const maxPopulation = Math.max(...countries.map(d => d.population));
-const chart = document.getElementById("chart");
+  const filtered = countries.filter(country =>
+    country.population >= keyword
+  );
 
-countries.forEach(item => {
-  const bar = document.createElement("div");
-  bar.style.width = (item.population / maxPopulation * 100) + "%";
-  bar.style.background = "skyblue";
-  bar.style.margin = "5px 0";
-  bar.style.padding = "10px";
-  bar.style.display = "flex";
-  bar.style.justifyContent = "space-between";
-  bar.textContent = `${item.country} - ${item.population.toLocaleString()}`;
-  chart.appendChild(bar);
-});
+  resultMsg.textContent = `${filtered.length} countries satisfied the search criteria`;
+  displayCountries(filtered);
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
