@@ -25,8 +25,6 @@ function displayCountries(countries) {
 // calling the display function with the initial data
 displayCountries(countries);
 
-
-
 const resultMsg = document.getElementById("result-msg");
 
 searchInput.addEventListener("input", () => {
@@ -35,6 +33,7 @@ searchInput.addEventListener("input", () => {
   if (keyword === "") {
     resultMsg.textContent = "";
     displayCountries(countries);       // show all countries again if keyword not written
+    renderChart(countries);                 // show top 10 from all countries
     return; // stop here
   }
 });
@@ -43,6 +42,7 @@ searchInput.addEventListener("input", () => {
 const name1 = document.getElementById("name")
 const capital = document.getElementById("capital")
 const population = document.getElementById("population")
+// const graph = document.getElementById("graph")
 
 // each button are click able 
 
@@ -55,6 +55,8 @@ name1.addEventListener("click",()=>{
 
   resultMsg.textContent = `${filtered.length} countries satisfied the search criteria`;
   displayCountries(filtered);
+  renderChart(filtered); // call with filtered data 
+
 })
 
 
@@ -67,6 +69,8 @@ capital.addEventListener("click", () => {
 
   resultMsg.textContent = `${filtered.length} countries satisfied the search criteria`;
   displayCountries(filtered);
+  renderChart(filtered); // call with filtered data
+
 });
 
 
@@ -74,24 +78,84 @@ population.addEventListener("click", ()=>{
   const keyword = Number(searchInput.value);
 
   const filtered = countries.filter(country =>
-    country.population >= keyword
+    country.population <= keyword
   );
 
   resultMsg.textContent = `${filtered.length} countries satisfied the search criteria`;
   displayCountries(filtered);
+  renderChart(filtered); // ✅ call with filtered data
+})
+
+graph.addEventListener("click", ()=>{
+  renderChart(countries)
+  document.getElementById("myChart").scrollIntoView({
+    behavior: "smooth"
+  });
 })
 
 
 
+let chartDiv = document.createElement("div")
+chartDiv.style.paddingLeft = "20em"
+chartDiv.style.paddingRight = "21em"
+chartDiv.style.paddingTop = "4em"
+chartDiv.style.paddingBottom ="2em"
+chartDiv.style.backgroundColor = "#fefae0"
+container.after(chartDiv)
+
+let canvas = document.createElement("canvas")
+canvas.id = "myChart"
+canvas.style.border = "0.2rem solid black"
+chartDiv.append(canvas)
 
 
+let chart; // to store Chart instance globally
 
+ 
+    function renderChart(countriesArray) {
+      if (chart) {
+        chart.destroy();
+      }
+    
+      let topCountries;
+      if (countriesArray.length <= 10) {
+        topCountries = [...countriesArray];
+      } else {
+        topCountries = [...countriesArray].sort((a, b) => b.population - a.population).slice(0, 10);
+      }
+    
+      const labels = topCountries.map(country => country.name);
+      const data = topCountries.map(country => country.population);
+    
 
+      const ctx = document.getElementById("myChart").getContext("2d");
+      // create new chart
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Population',
+            backgroundColor: "orange",
+            data: data,
+            borderWidth: 1
+          }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: value => value.toLocaleString()
+              }
+            }
+          }
+        }
+      });
+    }
 
-
-
-
-
+renderChart(countries); 
 
 
 
